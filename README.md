@@ -28,7 +28,7 @@ Once configured you can switch from your B2C tenant to another using the user me
 
 ![change directory](assets/img01.png)
 
-#Azure Resources Setup
+# Azure Resources Setup
 
 In order to create this lab you have to creare:
 
@@ -43,7 +43,10 @@ the result will the following:
 
 ![resource group](assets/img02.png)
 
-#Setup NicolAPICalculator
+# Setup NicolAPICalculator
 
 Objective of this API is to expose the standard 4 operations (+, -, *, /) as authenticathed API.
-
+  
+  ASP.NET Core API with NO Authentication
+  
+  
