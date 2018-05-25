@@ -14,10 +14,7 @@ using Microsoft.Extensions.Options;
 namespace nicold.APICalculator
 {
     public class Startup
-    {
-        public static string ScopeRead;
-        public static string ScopeWrite;
-        
+    {        
         public Startup(IHostingEnvironment env)
         {
             var builder = new ConfigurationBuilder()
@@ -62,10 +59,7 @@ namespace nicold.APICalculator
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
-            loggerFactory.AddDebug();
-
-            ScopeRead = Configuration["AzureAdB2C:ScopeRead"];
-            ScopeWrite = Configuration["AzureAdB2C:ScopeWrite"];
+            loggerFactory.AddDebug();          
 
             app.UseAuthentication();
             app.UseMvc(routes =>

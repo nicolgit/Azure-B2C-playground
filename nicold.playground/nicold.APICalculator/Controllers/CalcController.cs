@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,7 +17,7 @@ namespace nicold.APICalculator.Controllers
     ///     http://nicolapicalculator.azurewebsites.net/api/calc/split?param1=5&param2=7
     /// </summary>
 
-
+    [Authorize]
     [Produces("application/json")]
     [Route("api/Calc")]
     public class CalcController : Controller
@@ -32,48 +33,32 @@ namespace nicold.APICalculator.Controllers
         {
             double result = 0;
 
-            if (isAuthorized())
+            try
             {
-                try
+                switch (op)
                 {
-                    switch (op)
-                    {
-                        case SUM:
-                            result = param1 + param2;
-                            break;
-                        case SUBTRACT:
-                            result = param1 - param2;
-                            break;
-                        case MULTIPLIES:
-                            result = param1 * param2;
-                            break;
-                        case SPLIT:
-                            result = param1 / param2;
-                            break;
-                        default:
-                            throw new InvalidOperationException(op);
-                    }
-
-                }
-                catch (InvalidOperationException)
-                {
-                    return NotFound($"Operation not found: {op}");
+                    case SUM:
+                        result = param1 + param2;
+                        break;
+                    case SUBTRACT:
+                        result = param1 - param2;
+                        break;
+                    case MULTIPLIES:
+                        result = param1 * param2;
+                        break;
+                    case SPLIT:
+                        result = param1 / param2;
+                        break;
+                    default:
+                        throw new InvalidOperationException(op);
                 }
             }
-            else
+            catch (InvalidOperationException)
             {
-                return Unauthorized();
-            }         
+                return NotFound($"Operation not found: {op}");
+            }
 
             return new ObjectResult(result);
-        }
-
-        private bool isAuthorized()
-        {
-            var user = HttpContext.User;
-            var claims = HttpContext.User.Claims.ToArray();
-
-            return user.Identity.IsAuthenticated;
         }
     }
 }
