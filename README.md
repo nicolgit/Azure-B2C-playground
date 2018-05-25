@@ -12,7 +12,7 @@ We will configure a Tenant B2C for the company my NicolCorp company(!) where we 
 
 As shown in the image below
 
-TODO: Disegno dell'architettura
+![architecture](assets/architecture.png)
 
 # Setup Azure AD B2C Instance
 
