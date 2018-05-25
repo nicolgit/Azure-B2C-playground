@@ -32,34 +32,48 @@ namespace nicold.APICalculator.Controllers
         {
             double result = 0;
 
-            try
+            if (isAuthorized())
             {
-                switch (op)
+                try
                 {
-                    case SUM:
-                        result = param1 + param2;
-                        break;
-                    case SUBTRACT:
-                        result = param1 - param2;
-                        break;
-                    case MULTIPLIES:
-                        result = param1 * param2;
-                        break;
-                    case SPLIT:
-                        result = param1 / param2;
-                        break;
-                    default:
-                        throw new InvalidOperationException(op);
+                    switch (op)
+                    {
+                        case SUM:
+                            result = param1 + param2;
+                            break;
+                        case SUBTRACT:
+                            result = param1 - param2;
+                            break;
+                        case MULTIPLIES:
+                            result = param1 * param2;
+                            break;
+                        case SPLIT:
+                            result = param1 / param2;
+                            break;
+                        default:
+                            throw new InvalidOperationException(op);
+                    }
+
                 }
-   
+                catch (InvalidOperationException)
+                {
+                    return NotFound($"Operation not found: {op}");
+                }
             }
-            catch (InvalidOperationException)
+            else
             {
-                return NotFound($"Operation not found: {op}");
-            }
+                return Unauthorized();
+            }         
 
             return new ObjectResult(result);
         }
 
+        private bool isAuthorized()
+        {
+            var user = HttpContext.User;
+            var claims = HttpContext.User.Claims.ToArray();
+
+            return user.Identity.IsAuthenticated;
+        }
     }
 }
