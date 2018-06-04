@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:mobileapp"
+             x:Class="mobileapp.MainPage">
+
+    <StackLayout Orientation="Vertical">
+        <!-- Place new controls here -->
+    	<Label Text="Welcome to Xamarin.Forms!"  />
+        <Button Margin="10" Text="Sign-in" Clicked="Button_SigninClicked" IsEnabled="{Binding IsNotSignedIn}"  />
+        <Button Margin="10" Text="Sign-out" Clicked="Button_SignOutClicked" IsEnabled="{Binding IsSignedIn}" />
+        <Button Margin="10" Text="Sum test" Clicked="Button_SumClicked" IsEnabled="{Binding IsSignedIn}" />
+        <Label Margin="10" Text="{Binding Path=Output}" LineBreakMode="WordWrap"/>
+    </StackLayout>
+
+</ContentPage>
