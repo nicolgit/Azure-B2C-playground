@@ -46,7 +46,7 @@ the result will the following:
 # Next Steps
 
 1. [setup NicolAPICalculator](setup-apicalculator.md)
-	1. Access API from Xamarin Forms Client App
+	1. [Access API from Xamarin Forms Client App](setup-apicalculator-xamarin.md)
 2. Configure NicolAPIScientificCalculator
 3. Configure NicolWebCalculator
 4. Configure NicolWEBScientificCalculator

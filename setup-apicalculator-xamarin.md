@@ -61,10 +61,22 @@ Now go to App.xaml.cs and initialize a PublicClientApplication instance from MSA
 
 Almost ready, on MainPage.xaml.cs you have to manage the authentication flow and the API Call
 
-# setup authentication flow
+# Authentication and API CALL
+the authentication is managed by one line of code:
 
-...
+	AuthenticationResult ar = await App.PCA.AcquireTokenAsync(App.Scopes, GetUserByPolicy(App.PCA.Users, App.PolicySignUpSignIn), App.UiParent);
 
-# setup API Call
+it opens the browser and asks for username and password.
+once authenticated is possibile to call the API using the following code:
 
-...
+	// Acquire Access token
+	AuthenticationResult ar = await App.PCA.AcquireTokenSilentAsync(App.Scopes, GetUserByPolicy(App.PCA.Users, App.PolicySignUpSignIn), App.Authority, false);
+	string token = ar.AccessToken;
+	
+    // Get data from API
+    HttpClient client = new HttpClient();
+    HttpRequestMessage message = new HttpRequestMessage(HttpMethod.Get, apicall);
+    message.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+    HttpResponseMessage response = await client.SendAsync(message);
+    string responseString = await response.Content.ReadAsStringAsync();
+
