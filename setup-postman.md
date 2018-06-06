@@ -38,7 +38,7 @@ Add auth dato to| Request Header
 Click on Get New Access Token, and use the following parameters:
 
 Parameter | Value
-- | -
+-|-
 Token Name | anything-you-prefer
 Grant Type | Implicit
 Callback URL|https://getpostman.com/postman
