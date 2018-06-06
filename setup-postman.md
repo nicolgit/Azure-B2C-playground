@@ -28,14 +28,23 @@ API Access blade allows you to configure all the APIs "PostmanClient" is authori
 In Postman, create a Collection, then go to Edit Collection > Authorization:
 Use the following parameters:
 
-* Type: OAuth 2.0
-* Add auth dato to: Request Header
+Parameter | Value
+-|-
+Type| OAuth 2.0
+Add auth dato to| Request Header
+
+![Postman setup](assets/img08.png)
 
 Click on Get New Access Token, and use the following parameters:
 
 Parameter | Value
--|-
-Token Name|anything-you-prefer
-Grant Type|Implicit
+- | -
+Token Name | anything-you-prefer
+Grant Type | Implicit
 Callback URL|https://getpostman.com/postman
-Auth URL|https://login.microsoftonline.com/<<your tenant name>/oauth2/v2.0/authorize?p=B2C_1_signin-default
+Auth URL|https://login.microsoftonline.com/**your tenant name**/oauth2/v2.0/authorize?p=**your_policy_name**
+Client ID| **your postman Azure B2C Application id**
+Client Secret| 
+Scope| https://**your b2c tenant name**.onmicrosoft.com/**your postman app name**/**your scope name**
+
+![Postman get new access token](assets/img09.png)
