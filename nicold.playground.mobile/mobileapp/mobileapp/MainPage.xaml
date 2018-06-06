@@ -6,9 +6,17 @@
 
     <StackLayout Orientation="Vertical">
         <!-- Place new controls here -->
-    	<Label Text="Welcome to Xamarin.Forms!"  />
+    	<Label HorizontalTextAlignment="Center" Text="NicolAPICalculator Tester"  />
         <Button Margin="10" Text="Sign-in" Clicked="Button_SigninClicked" IsEnabled="{Binding IsNotSignedIn}"  />
         <Button Margin="10" Text="Sign-out" Clicked="Button_SignOutClicked" IsEnabled="{Binding IsSignedIn}" />
+        <Grid >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="1*" />
+            </Grid.ColumnDefinitions>
+            <Editor Text="{Binding Parameter1}" Grid.Row="0" Grid.Column="0" />
+            <Editor Text="{Binding Parameter2}" Grid.Row="0" Grid.Column="1" />
+        </Grid>
         <Button Margin="10" Text="Sum test" Clicked="Button_SumClicked" IsEnabled="{Binding IsSignedIn}" />
         <Label Margin="10" Text="{Binding Path=Output}" LineBreakMode="WordWrap"/>
     </StackLayout>

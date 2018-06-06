@@ -3,6 +3,7 @@ using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
@@ -17,6 +18,26 @@ namespace mobileapp
             BindingContext = this;
             IsSignedIn = false;
         }
+
+        protected async override void OnAppearing()
+        {
+            base.OnAppearing();
+
+            // Check to see if we have a User
+            // in the cache already.
+            try
+            {
+                AuthenticationResult ar = await App.PCA.AcquireTokenSilentAsync(App.Scopes, GetUserByPolicy(App.PCA.Users, App.PolicySignUpSignIn), App.Authority, false);
+                IsSignedIn = true;
+            }
+            catch (Exception ex)
+            {
+                // Doesn't matter the answer, we are offline
+                IsSignedIn = false;
+            }
+        }
+
+        #region PROPERTIES
 
         private bool _isSignedIn;
         public bool IsSignedIn
@@ -52,11 +73,40 @@ namespace mobileapp
             }
         }
 
+        private string _param1 = "4";
+        public string Parameter1
+        {
+            get
+            {
+                return _param1;
+            }
+            set
+            {
+                _param1 = value;
+                OnPropertyChanged("Parameter1");
+            }
+        }
+
+        private string _param2 = "3";
+        public string Parameter2
+        {
+            get
+            {
+                return _param2;
+            }
+            set
+            {
+                _param2 = value;
+                OnPropertyChanged("Parameter2");
+            }
+        }
+
+        #endregion
+
         private async void Button_SigninClicked(object sender, EventArgs e)
         {
             try
             {
-                //AuthenticationResult ar = await App.PCA.AcquireTokenSilentAsync(App.Scopes, GetUserByPolicy(App.PCA.Users, App.PolicySignUpSignIn), App.Authority, false);
                 AuthenticationResult ar = await App.PCA.AcquireTokenAsync(App.Scopes, GetUserByPolicy(App.PCA.Users, App.PolicySignUpSignIn), App.UiParent);
 
                 UpdateUserInfo(ar);
@@ -81,9 +131,44 @@ namespace mobileapp
             Output = "";
         }
 
-        private void Button_SumClicked(object sender, EventArgs e)
+        private async void Button_SumClicked(object sender, EventArgs e)
         {
+            try
+            {
+                Output = $"Calling API ...";
 
+                string parameters = $"?param1={Parameter1}&param2={Parameter2}";
+
+                string apicall = App.ApiEndpoint + parameters;
+
+                AuthenticationResult ar = await App.PCA.AcquireTokenSilentAsync(App.Scopes, GetUserByPolicy(App.PCA.Users, App.PolicySignUpSignIn), App.Authority, false);
+                string token = ar.AccessToken;
+
+                // Get data from API
+                HttpClient client = new HttpClient();
+                HttpRequestMessage message = new HttpRequestMessage(HttpMethod.Get, apicall);
+                message.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+                HttpResponseMessage response = await client.SendAsync(message);
+                string responseString = await response.Content.ReadAsStringAsync();
+
+                if (response.IsSuccessStatusCode)
+                {
+                    Output = $"Response from API {apicall} | {responseString}";
+                }
+                else
+                {
+                    Output = $"Error calling API {apicall}";
+                }
+            }
+
+            catch (MsalUiRequiredException ex)
+            {
+                await DisplayAlert($"Session has expired, please sign out and back in.", ex.ToString(), "Dismiss");
+            }
+            catch (Exception ex)
+            {
+                await DisplayAlert($"Exception:", ex.ToString(), "Dismiss");
+            }
         }
 
         private IUser GetUserByPolicy(IEnumerable<IUser> users, string policy)
