@@ -50,3 +50,5 @@ the result will the following:
 2. Configure NicolAPIScientificCalculator
 3. Configure NicolWebCalculator
 4. Configure NicolWEBScientificCalculator
+
+Use postman [to call the api](setup-postman.md)
