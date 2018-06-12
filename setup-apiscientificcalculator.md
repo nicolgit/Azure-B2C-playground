@@ -14,7 +14,7 @@ creat an application on Azure B2C.
 * WebApp/allow Implicit Flow: YES
 * Reply URL: https://jwt.ms 
   
-# (2) create a ASP Net Core API not authenticated
+# (2) Create a ASP Net Core API not authenticated
 Via Visual Studio create a solution of type "ASP.NET Core Web Application", type API, with NO Authentication
 
 # (3) Create a policy: B2C\_1\_signin-default
