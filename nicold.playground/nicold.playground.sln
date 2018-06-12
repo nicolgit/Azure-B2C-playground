@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.27703.2000
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "nicold.APICalculator", "nicold.APICalculator\nicold.APICalculator.csproj", "{AD82A38D-AAB9-46F9-854D-7640996E3227}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "nicold.APIScientificCalculator", "nicold.APIScientificCalculator\nicold.APIScientificCalculator.csproj", "{BC61499A-37C9-42ED-8BCE-3E9E1DD18E9C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "nicold.APIScientificCalculator", "nicold.APIScientificCalculator\nicold.APIScientificCalculator.csproj", "{BC61499A-37C9-42ED-8BCE-3E9E1DD18E9C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
