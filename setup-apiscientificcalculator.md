@@ -1,30 +1,24 @@
 # Setup NicolAPICalculator
 
-Objective of this API is to expose the standard 4 operations (+, -, *, /) as authenticathed API.
 In this walktrough we will configure a dot net core api including the configuration for Azure B2C tenant.
 
+Objective of this API is to expose 3 "complex" operations (^2, %, !) as authenticathed API. In order to be implemented, these APIs require calls to [Calculator Api](setup-apicalculator.md). We are also assuming in this sample that impersonation is required in API 2 API call.
+
+The configuration is very similar to ApiCalculator, so I will *highlight* all relevant diffenences.
 
 # (1) Azure B2C Configuration
-Create an application on Azure B2C as shown follow.
+creat an application on Azure B2C.
 
-![Create Application](assets/img03.png)
-  
-Note: https://jws.ms allows you to read easily the bearer, so that you can copy it in Postman or curl.
+* Name: ApiScientificCalculator
+* WebApp/Include WebAPI: YES
+* WebApp/allow Implicit Flow: YES
+* Reply URL: https://jwt.ms 
   
 # (2) create a ASP Net Core API not authenticated
-Via visual studio create a solution of type "ASP.NET Core Web Application", type API, with NO Authentication
-![create vs project](assets/img04.png)
-
+Via Visual Studio create a solution of type "ASP.NET Core Web Application", type API, with NO Authentication
 
 # (3) Create a policy: B2C\_1\_signin-default
-
-On Azure Portal, on Azure AD B2C Service go to
-
-* Sign-up or sign-in policies
-* Add and name it "B2C\_1\_signin-default"
-
-
-In Azure AD B2C, every user experience is defined by a policy. You have to create a policy in order to control the specific look and feel, use of MFA, information the app receive from AD B2C etc.
+*You don't need to create an additional policy, just use the policy already created.*
 
 # (4) Configure appsettings.json and solution for authentication
 
@@ -33,7 +27,7 @@ In appsettings.config add the following information:
 	"AzureAdB2C": {
 	"Tenant": "nicolb2c.onmicrosoft.com",
 	"ClientId": "<the application id (guid)>",
-	"Policy: "B2C_1_signin-default"
+	"Policy": "B2C_1_signin-default"
 	},
 
 also add following nuget packages to the solution
@@ -43,7 +37,7 @@ also add following nuget packages to the solution
 	Microsoft.Extensions.Configuration.UserSecrets
 	Microsoft.Extensions.SecretManager.Tools
 
-#(4) update the code 
+# (5) Update the code 
 
 Update [program.cs](nicold.playground/nicold.APICalculator/program.cs) and [startup.cs](nicold.playground/nicold.APICalculator/startup.cs) as shown in this repository. 
 

@@ -1,5 +1,5 @@
 # Setup Postman to call Azure B2C API	
-Postman has a nice feature that helps you retrieve easily a bearer token needed to access to an OAuth 2.0 endpoint. You can find this nice tool in Edit Collection > Authorization form.
+Postman has a nice feature that helps you retrieve easily a bearer token needed to access to an OAuth 2.0 endpoint. You can find this tool in Edit Collection > Authorization form.
 
 In this page I will describe how to configure both Azure B2C Tenant and Postman to use this feature.
 
@@ -48,3 +48,4 @@ Client Secret|
 Scope| https://**your b2c tenant name**.onmicrosoft.com/**your postman app name**/**your scope name**
 
 ![Postman get new access token](assets/img09.png)
+

@@ -22,7 +22,7 @@ In my environment:
 
 * 	**Organization**: NicolCorp-B2C-Playground
 * 	**Domain**: nicolb2c.onmicrosoft.com
-* 	**Contry**: Italy (yes i'm italian :-)
+* 	**Country**: Italy (because... I'm italian :-)
 	
 Once configured you can switch from your B2C tenant to another using the user menu on the top right of the Azure Portal.
 
@@ -45,9 +45,9 @@ the result will the following:
 
 # Next Steps
 
-1. [setup NicolAPICalculator](setup-apicalculator.md)
+1. [Setup NicolAPICalculator](setup-apicalculator.md)
 	1. [Access API from Xamarin Forms Client App](setup-apicalculator-xamarin.md)
-2. Configure NicolAPIScientificCalculator
+2. [Setup setup-api-scientificcalculator.md](setup-apiscientificcalculator.md)
 3. Configure NicolWebCalculator
 4. Configure NicolWEBScientificCalculator
 
