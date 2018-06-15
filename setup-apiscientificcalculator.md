@@ -2,7 +2,7 @@
 
 In this walktrough we will configure a dot net core api including the configuration for Azure B2C tenant.
 
-Objective of this API is to expose 3 "complex" operations (^2, %, !) as authenticathed API. In order to be implemented, these APIs require calls to [Calculator Api](setup-apicalculator.md). We are also assuming in this sample that impersonation is required in API 2 API call.
+Objective of this API is to expose 3 "complex" operations (x^y, %, !) as authenticathed API. In order to be implemented, these APIs require calls to [Calculator Api](setup-apicalculator.md). We are also assuming in this sample that impersonation is required in API 2 API call.
 
 The configuration is very similar to ApiCalculator, so I will *highlight* all relevant diffenences.
 
