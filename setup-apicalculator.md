@@ -9,8 +9,12 @@ Create an application on Azure B2C as shown follow.
 
 ![Create Application](assets/img03.png)
   
-Note: https://jws.ms allows you to read easily the bearer, so that you can copy it in Postman or curl.
-  
+**Note**: https://jws.ms allows you to read easily the bearer, so that you can copy it in Postman or curl.
+
+After creating it, select "Api access". Click the "Add" button. In the next blade, select the API (ApiCalculator) and as permission "Access this app on behalf of the signed-in user". This is the permissions you would like to grant your client application.
+
+![Set API Access](assets/img11.png)
+
 # (2) create a ASP Net Core API not authenticated
 Via visual studio create a solution of type "ASP.NET Core Web Application", type API, with NO Authentication
 ![create vs project](assets/img04.png)
@@ -43,7 +47,7 @@ also add following nuget packages to the solution
 	Microsoft.Extensions.Configuration.UserSecrets
 	Microsoft.Extensions.SecretManager.Tools
 
-#(4) update the code 
+# (4) Update the code 
 
 Update [program.cs](nicold.playground/nicold.APICalculator/program.cs) and [startup.cs](nicold.playground/nicold.APICalculator/startup.cs) as shown in this repository. 
 
@@ -69,8 +73,15 @@ The anonymous API looks like the following:
 
 if we want to enable the authentication, we need to add the **\[Authorize\]** attribute to the class, and everything is ready. In this sample we just require authentication, but if you need also to verify the presence of a specific claim or somthing, you can filter within the get() method on attribute in **HttpContext.User** and/or **HttpContext.User.Claims**.
 
-# retrieve the bearer and call the API
-That's all. In order to call the API, you can call the following link [https://login.microsoftonline.com/nicolb2c.onmicrosoft.com/oauth2/v2.0/authorize?p=B2C_1_signin-default&client_id=27339a64-0c55-4ba0-8632-aaaa81030814&nonce=defaultNonce&redirect_uri=https%3A%2F%2Fjwt.ms&scope=https%3A%2F%2Fnicolb2c.onmicrosoft.com%2FApiCalculator%2Fuser_impersonation&response_type=token&prompt=login](https://login.microsoftonline.com/nicolb2c.onmicrosoft.com/oauth2/v2.0/authorize?p=B2C_1_signin-default&client_id=27339a64-0c55-4ba0-8632-aaaa81030814&nonce=defaultNonce&redirect_uri=https%3A%2F%2Fjwt.ms&scope=https%3A%2F%2Fnicolb2c.onmicrosoft.com%2FApiCalculator%2Fuser_impersonation&response_type=token&prompt=login) it gives you the bearer you can put in the header to call the api.
+# Retrieve the bearer and call the API
+That's all. In order to call the API, you can go to Azure Portal > Azure B2C > Policies > Sign-up or Sign-In User Policy > B2C_1_signin-default
+
+![retrieve the bearer](assets/img10.png)
+
+* Application: ApiCalculator
+* replyURL: https://jwt.ws
+
+click [RUN NOW], copy the bearer from the page and use it in Postman as shown below
 
 ![call api with postman](assets/img05.png)
 
