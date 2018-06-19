@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -17,7 +18,7 @@ namespace nicold.APIScientificCalculator.Controllers
     public class ScientificCalcController : ControllerBase
     {
         private static readonly HttpClient _client = new HttpClient();
-        private string CALL_MULTIPLY = "http://nicolapicalculator.azurewebsites.net/api/calc/sum?param1={0}&param2={1}";
+        private string CALL_MULTIPLY = "http://nicolapicalculator.azurewebsites.net/api/calc/multiply?param1={0}&param2={1}";
 
 
         public const string POWER = "power";
@@ -42,10 +43,15 @@ namespace nicold.APIScientificCalculator.Controllers
                         }
                         break;
                     case PERCENTAGE:
-                        result = param1 % param2;
+                        result = await _multiply( param1, param2);
+                        result = await _multiply(result, 1.0 / 100.0);
                         break;
                     case FACTORIAL:
-                        result = param1 * param2;
+                        result = 1;
+                        for (int i=0; i< param1; i++)
+                        {
+                            result *= await _multiply(result, i);
+                        }
                         break;
                     default:
                         throw new InvalidOperationException(op);
@@ -73,7 +79,7 @@ namespace nicold.APIScientificCalculator.Controllers
 
             if (httpResponse.IsSuccessStatusCode)
             {
-                result = double.Parse(await httpResponse.Content.ReadAsStringAsync());
+                result = double.Parse(await httpResponse.Content.ReadAsStringAsync(), CultureInfo.InvariantCulture);
             }
             return result;
         }
