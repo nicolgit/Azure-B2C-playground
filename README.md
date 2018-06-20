@@ -1,7 +1,7 @@
 # Azure-B2C-playground
-Azure AD B2C playground ehre test authentication and integration scenarios
+Azure AD B2C playground for test authentication and integration scenarios.
 
-Objective for this lab is build a playground where test various authentication and integration scenarios on Azure B2C.
+Objective for this lab is to build a playground where to test various authentication and integration scenarios on Azure B2C.
 
 We will configure a Tenant B2C for the company my NicolCorp company(!) where we will store all customer's user profiles. Once configured we will configure the following Web Application:
 
@@ -10,7 +10,7 @@ We will configure a Tenant B2C for the company my NicolCorp company(!) where we 
 * 	**NicolWebCalculator**: an ASP.NET MVC Web Application that allows user to perform simple calculations. It uses NicolAPICalculator via backend.
 * 	**NicolWebScientificCalculator**:  an ASP.NET MVC Web Application that allows user to perform simple calculations. It uses NicolAPICalculator via backend.
 
-As shown in the image below
+As shown in the image below:
 
 ![architecture](assets/architecture.png)
 
@@ -47,8 +47,8 @@ the result will the following:
 
 1. [Setup NicolAPICalculator](setup-apicalculator.md)
 	1. [Access API from Xamarin Forms Client App](setup-apicalculator-xamarin.md)
-2. [Setup setup-api-scientificcalculator.md](setup-apiscientificcalculator.md)
+2. [Setup setup-api-scientificcalculator](setup-apiscientificcalculator.md)
 3. Configure NicolWebCalculator
 4. Configure NicolWEBScientificCalculator
 
-Use postman [to call the api](setup-postman.md)
+How to use postman [to call the APIs](setup-postman.md) - the easy way:-)
