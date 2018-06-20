@@ -19,8 +19,7 @@ namespace nicold.APIScientificCalculator.Controllers
     {
         private static readonly HttpClient _client = new HttpClient();
         private string CALL_MULTIPLY = "http://nicolapicalculator.azurewebsites.net/api/calc/multiply?param1={0}&param2={1}";
-
-
+        
         public const string POWER = "power";
         public const string PERCENTAGE = "percentage";
         public const string FACTORIAL = "factorial";
