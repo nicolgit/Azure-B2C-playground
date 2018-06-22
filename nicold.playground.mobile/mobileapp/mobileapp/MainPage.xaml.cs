@@ -133,11 +133,31 @@ namespace mobileapp
 
         private async void Button_SumClicked(object sender, EventArgs e)
         {
+            await CallCalculatorAPI("sum");
+        }
+
+        private async void Button_SubClicked(object sender, EventArgs e)
+        {
+            await CallCalculatorAPI("subtract");
+        }
+
+        private async void Button_MulClicked(object sender, EventArgs e)
+        {
+            await CallCalculatorAPI("multiply");
+        }
+
+        private async void Button_SplitClicked(object sender, EventArgs e)
+        {
+            await CallCalculatorAPI("split");
+        }
+
+        private async Task CallCalculatorAPI(string operation)
+        {
             try
             {
                 Output = $"Calling API ...";
 
-                string parameters = $"?param1={Parameter1}&param2={Parameter2}";
+                string parameters = $"{operation}?param1={Parameter1}&param2={Parameter2}";
 
                 string apicall = App.ApiEndpoint + parameters;
 
@@ -153,7 +173,7 @@ namespace mobileapp
 
                 if (response.IsSuccessStatusCode)
                 {
-                    Output = $"Response from API {apicall} | {responseString}";
+                    Output = $"Response from API {apicall}\r\n\r\n{responseString}";
                 }
                 else
                 {
@@ -172,7 +192,6 @@ namespace mobileapp
         }
 
         private IUser GetUserByPolicy(IEnumerable<IUser> users, string policy)
-
         {
             foreach (var user in users)
             {
@@ -210,6 +229,11 @@ namespace mobileapp
             idToken = idToken.Split('.')[1];
             idToken = Base64UrlDecode(idToken);
             return JObject.Parse(idToken);
+        }
+
+        private void Button_Clicked(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -17,7 +17,7 @@ namespace mobileapp
         public static string PolicySignUpSignIn = "B2C_1_signin-default";
 
         public static string[] Scopes = { "https://nicolb2c.onmicrosoft.com/ApiCalculator/user_impersonation" };
-        public static string ApiEndpoint = "https://nicolapicalculator.azurewebsites.net/api/calc/sum";
+        public static string ApiEndpoint = "https://nicolapicalculator.azurewebsites.net/api/calc/";
         public static string AuthorityBase = $"https://login.microsoftonline.com/tfp/{Tenant}/";
         public static string Authority = $"{AuthorityBase}{PolicySignUpSignIn}";
         //public static string Authority = $"https://login.microsoftonline.com/nicolb2c.onmicrosoft.com/v2.0/.well-known/openid-configuration?p=B2C_1_signin-default";
