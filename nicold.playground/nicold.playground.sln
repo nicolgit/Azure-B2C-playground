@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "nicold.APICalculator", "nic
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "nicold.APIScientificCalculator", "nicold.APIScientificCalculator\nicold.APIScientificCalculator.csproj", "{BC61499A-37C9-42ED-8BCE-3E9E1DD18E9C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "nicold.WebCalculator", "nicold.WebCalculator\nicold.WebCalculator.csproj", "{3017DD23-CED5-403A-AA3F-8448BA5943DA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{BC61499A-37C9-42ED-8BCE-3E9E1DD18E9C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BC61499A-37C9-42ED-8BCE-3E9E1DD18E9C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BC61499A-37C9-42ED-8BCE-3E9E1DD18E9C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3017DD23-CED5-403A-AA3F-8448BA5943DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3017DD23-CED5-403A-AA3F-8448BA5943DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3017DD23-CED5-403A-AA3F-8448BA5943DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3017DD23-CED5-403A-AA3F-8448BA5943DA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
