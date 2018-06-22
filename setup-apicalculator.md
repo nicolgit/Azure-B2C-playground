@@ -78,10 +78,10 @@ That's all. In order to call the API, you can go to Azure Portal > Azure B2C > P
 
 ![retrieve the bearer](assets/img10.png)
 
-* Application: ApiCalculator
-* replyURL: https://jwt.ws
+* Application: **ApiCalculator**
+* ReplyURL: **https://jwt.ws**
 
-click [RUN NOW], copy the bearer from the page and use it in Postman as shown below
+Click [RUN NOW], copy the bearer from the page and use it in Postman as shown below
 
 ![call api with postman](assets/img05.png)
 

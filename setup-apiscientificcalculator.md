@@ -21,7 +21,7 @@ Via visual studio create a solution of type "ASP.NET Core Web Application", type
 ![create vs project](assets/img04.png)
 
 # (2) Create a ASP Net Core API not authenticated
-Via Visual Studio create a solution of type ""ASP.NET Core Web Application"", type API, with NO Authentication.
+Via Visual Studio create a solution of type "ASP.NET Core Web Application", type API, with NO Authentication.
 
 # (3) Create a policy: B2C\_1\_signin-default
 **You don't need to create an additional policy, just use the policy already created** (B2C_1_signin-default).
@@ -50,7 +50,7 @@ Update [program.cs](nicold.playground/nicold.APICalculator/program.cs) and [star
 It is now the time to build the real API. We will implement the API with the controller [Controllers/CalcController.cs](nicold.playground/nicold.APIScientificCalculator/Controllers/CalcController.cs)****
 
 The sequence of operation needed to authenticate the API is similar to APICalculatator. The interesting part is the API to API portion of the code.
-Here the main attention point
+Here the main attention points:
 
 ### Make the Get Asyncronous
  	public async Task<IActionResult> Get(string op, [FromQuery] double param1, [FromQuery] double param2)
@@ -67,17 +67,15 @@ Here the main attention point
 
     var httpResponse = await _client.GetAsync(string.Format(CALL_MULTIPLY, param1, param2));
 
-# (6) configure ApiAccess on Azure B2c Tenant
+# (6) Update to APICalculator to avoid ValidateAudience check
 
-lorem ipsut dixit...
-
-# (7) Update to APICalculator to avoid ValidateAudience check
-
-By default dot net core verify if the token and API audience match. this means that if in a cross API call you try to use the same bearer, when ScientificAPI Calls Calculator receive the following message:
+By default Microsoft.AspNetCore.Authentication.JwtBearer middleware verifies on call if the token and the API audience match. This means that in a cross API call, if you try to use the same bearer, when ScientificAPI Calls Calculator receive the following message:
 
 	AuthenticationFailed: IDX10214: Audience validation failed. Audiences: '9f3d61b2-e38e-4c22-88ed-3f6735e40e0a'. Did not match: validationParameters.ValidAudience: '27339a64-0c55-4ba0-8632-aaaa81030814' or validationParameters.ValidAudiences: 'null'.
 
-in order to avoid this to calculatorAPI you need to add 
+This because both clientdi "9f3d61b2-e38e-4c22-88ed-3f6735e40e0a" and clientid "27339a64-0c55-4ba0-8632-aaaa81030814" want to access to same API.
+
+In order to avoid this, to calculatorAPI you need to add the following
 
 	var tokenValidationParameters = new TokenValidationParameters
             {
@@ -91,7 +89,7 @@ in order to avoid this to calculatorAPI you need to add
                 ValidateLifetime = true
             };
 
-and 
+and the following
 
 	.AddJwtBearer(jwtOptions =>
               {
@@ -104,11 +102,16 @@ and
                   };
               });
 
-in this way
-
-# Avoid ValidateAudience check
-
-... riperete il concetto della rimozione del ValidateAudience Check per permettere la cross API call (vedi ApiScientificCalculator page)
+where you are telling "dear middlewhere, please do not validate Audience on each call":)
 
 # Retrieve the bearer and call the API
-**Same as ApiCalculator**.
+That's all. In order to call the API, you can go to Azure Portal > Azure B2C > Policies > Sign-up or Sign-In User Policy > B2C_1_signin-default
+
+![retrieve the bearer](assets/img10.png)
+
+* Application: **ApiScientificCalculator**
+* ReplyURL: **https://jwt.ws**
+
+Click [RUN NOW], copy the bearer from the page and use it in Postman.
+
+
