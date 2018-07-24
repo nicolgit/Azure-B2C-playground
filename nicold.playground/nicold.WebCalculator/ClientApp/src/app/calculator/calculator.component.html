@@ -1,0 +1,19 @@
+<h1>Calculator</h1>
+
+<p>This is a simple web calculator</p>
+
+
+
+<div>
+  parameter one <input [(ngModel)]="param1" /> parameter two <input [(ngModel)]="param2" />  <br />
+  <br />
+  <div>{{param1}} *** {{param2}}</div>
+  <br />
+  <H2>Result</H2>
+  <div  [hidden]="isAuthenticated == true">
+    {{result}}
+  </div>
+  <div [hidden]="isAuthenticated == false" style="color:red">
+    please sign in to continue <button [hidden]="isAuthenticated == false" (click)="authenticate()">sign in</button>
+  </div>
+</div> 
