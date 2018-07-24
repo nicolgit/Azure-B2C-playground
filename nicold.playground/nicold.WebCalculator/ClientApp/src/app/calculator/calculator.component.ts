@@ -37,7 +37,14 @@ export class CalculatorComponent {
   }
 
   public authenticate() {
-    
+    var Msal = require("msal");
+
+    var logger = new Msal.Logger(this.loggerCallback, { level: Msal.LogLevel.Verbose });
+
+  }
+
+  private loggerCallback(logLevel, message, piiLoggingEnabled) {
+    console.log(message);
   }
 
   

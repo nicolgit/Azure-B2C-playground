@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27703.2000
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "nicold.WebCalculator", "nicold.WebCalculator\nicold.WebCalculator.csproj", "{3017DD23-CED5-403A-AA3F-8448BA5943DA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "nicold.WebCalculator", "nicold.WebCalculator\nicold.WebCalculator.csproj", "{3017DD23-CED5-403A-AA3F-8448BA5943DA}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "nicold.APICalculator", "nicold.APICalculator\nicold.APICalculator.csproj", "{521E9582-7F73-4A9C-ADAB-462E0A475BAD}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "nicold.APIScientificCalculator", "nicold.APIScientificCalculator\nicold.APIScientificCalculator.csproj", "{D70AC629-D35D-4859-89CF-AA98F82B1DFF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{3017DD23-CED5-403A-AA3F-8448BA5943DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3017DD23-CED5-403A-AA3F-8448BA5943DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3017DD23-CED5-403A-AA3F-8448BA5943DA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{521E9582-7F73-4A9C-ADAB-462E0A475BAD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{521E9582-7F73-4A9C-ADAB-462E0A475BAD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{521E9582-7F73-4A9C-ADAB-462E0A475BAD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{521E9582-7F73-4A9C-ADAB-462E0A475BAD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D70AC629-D35D-4859-89CF-AA98F82B1DFF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D70AC629-D35D-4859-89CF-AA98F82B1DFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D70AC629-D35D-4859-89CF-AA98F82B1DFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D70AC629-D35D-4859-89CF-AA98F82B1DFF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

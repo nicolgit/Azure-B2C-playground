@@ -40,7 +40,6 @@ The next step is to create the remaining objects in Azure:
 * **Resource Group**: nicolcorp-b2c-playground - will contain all the resources involved in the plan
 * **AppService Plan**: nicolplan-b2c 
 * **WebApp**: NicolWebCalculator.azurewebsites.net (OS: Windows)
-* **WebApp**: NicolWebScientificCalculator.azurewebsites.net (OS: Windows)
 * **WebApp**: NicolAPICalculator.azurewebsites.net (OS: Windows)
 * **WebApp**: NicolAPIScientificCalculator.azurewebsites.net (OS: Windows)
  
