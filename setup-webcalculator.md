@@ -14,17 +14,20 @@ Create an application on Azure B2C.
 
 After creating it, select "Api access". Click the "Add" button. In the next blade, add both ApiCalculator and ApiScientificCalculator) this will allow to call with the same authorization bearer both ApiScientificCalculator **and** ApiCalculator.
 
-![Set API Access](assets/img13.png)
+![Set API Access](assets/img12.png)
 
 # (2) create a ASP Net Core Web Application of type ANGULAR
 Via visual studio create a solution of type "ASP.NET Core Web Application", type ANGULARE, with NO Authentication
-![create vs project](assets/img04.png)
-
-# (2) Create a ASP Net Core API not authenticated
-Via Visual Studio create a solution of type "ASP.NET Core Web Application", type API, with NO Authentication.
+![create vs project](assets/img13.png)
 
 # (3) Create a policy: B2C\_1\_signin-default
 **You don't need to create an additional policy, just use the policy already created** (B2C_1_signin-default).
+
+# (4) Reference Microsoft Authentication Library
+use the following command to add a reference Microsoft Authentication Library:
+
+    npm install @types/node
+    npm install msal
 
 # (4) Configure appsettings.json and solution for authentication
 

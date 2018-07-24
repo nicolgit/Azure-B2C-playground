@@ -5,6 +5,7 @@ var CalculatorService = /** @class */ (function () {
         this.parameter1 = 12;
         this.parameter2 = 34;
         this.isAuthenticated = false;
+        this.username = "";
     }
     return CalculatorService;
 }());
