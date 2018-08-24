@@ -15,12 +15,12 @@
   <div>{{param1}} *** {{param2}}</div>
   <br />
   <H2>Result</H2>
-  <div [hidden]="isAuthenticated == true">
+  <div [hidden]="isAuthenticated">
     {{username}}<br/>
     {{result}}
   </div>
-  <div [hidden]="isAuthenticated == false" style="color:red">
-    please sign in to continue <button [hidden]="isAuthenticated == false" (click)="authenticate()">sign in</button>
+  <div [hidden]="!isAuthenticated" style="color:red">
+    please sign in to continue <button (click)="authenticate()">sign in</button>
   </div>
 
 </div> 

@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ChangeDetectorRef, ApplicationRef, NgZone, ChangeDetectionStrategy } from '@angular/core';
 import { CalculatorService } from '../calculator.service';
 import * as Msal from 'msal';
 
@@ -6,18 +6,19 @@ import * as Msal from 'msal';
   selector: 'app-counter-component',
   templateUrl: './calculator.component.html',
   providers: [CalculatorService],
+  changeDetection: ChangeDetectionStrategy.Default
 })
 
 export class CalculatorComponent {
   private logger: Msal.Logger;
   private clientApplication: Msal.UserAgentApplication;
 
-  constructor(private calculatorService: CalculatorService) {
+  constructor(private calculatorService: CalculatorService, private cd: ChangeDetectorRef) {
     
     this.logger = new Msal.Logger(this.loggerCallback, { level: Msal.LogLevel.Verbose });
     this.clientApplication = new Msal.UserAgentApplication(calculatorService.applicationConfig.clientID, calculatorService.applicationConfig.authority, this.authCallback);
   }
-
+  
   get param1(): number {
     return this.calculatorService.parameter1;
   }
@@ -32,7 +33,20 @@ export class CalculatorComponent {
     this.calculatorService.parameter2 = val;
   }
 
-  username: string;
+  get username(): string {
+    return this.calculatorService.username;
+  }
+  set username(val: string) {
+    this.calculatorService.username = val;
+  }
+
+  get isAuthenticated(): boolean {
+    return this.calculatorService.isAuthenticated;
+  }
+  set isAuthenticated(val: boolean) {
+    this.calculatorService.isAuthenticated = val;
+  }
+
   
   get result(): string {
     if (this.calculatorService.isAuthenticated) {
@@ -44,12 +58,17 @@ export class CalculatorComponent {
   }
 
   public authenticate() {
-    this.clientApplication.loginPopup(this.calculatorService.applicationConfig.b2cScopes).then(function (idToken) {
-      this.clientApplication.acquireTokenSilent(this.calculatorService.applicationConfig.b2cScopes).then(function (accessToken) {
-        this.updateUI();
+    var _this = this;
+
+    console.log("begin loginPopup");
+    _this.clientApplication.loginPopup(_this.calculatorService.applicationConfig.b2cScopes).then(function (idToken) {
+        console.log("begin acquireTokenSilent");
+        _this.clientApplication.acquireTokenSilent(_this.calculatorService.applicationConfig.b2cScopes).then(function (accessToken) {
+           _this.updateUI();
       }, function (error) {
-        this.clientApplication.acquireTokenPopup(this.calculatorService.applicationConfig.b2cScopes).then(function (accessToken) {
-          this.updateUI();
+        console.log("ERROR begin acquireTokenPopup");
+        _this.clientApplication.acquireTokenPopup(_this.calculatorService.applicationConfig.b2cScopes).then(function (accessToken) {
+        _this.updateUI();
         }, function (error) {
           console.log("Error acquiring the popup:\n" + error);
         });
@@ -69,7 +88,8 @@ export class CalculatorComponent {
   }
 
   private updateUI() {
-    this.username = this.clientApplication.getUser().name;
+    this.username = this.clientApplication.getUser().userIdentifier;
+    this.isAuthenticated = true;
   }
   
 
