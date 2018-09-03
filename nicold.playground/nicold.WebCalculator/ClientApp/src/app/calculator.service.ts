@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import 'rxjs/add/operator/map';
 
 export class ApplicationConfig {
@@ -19,7 +19,7 @@ export class CalculatorService {
     this.parameter2 = 34;
     this.isAuthenticated = false;
     this.username = "prova";
-    this.result = 0;
+    this.result = "";
 
     this.applicationConfig = new ApplicationConfig();
     this.applicationConfig.clientID = 'c07391de-3205-4496-a704-4607b18b64f9';
@@ -35,26 +35,35 @@ export class CalculatorService {
   isAuthenticated: boolean;
   parameter1: number;
   parameter2: number;
-  result: number;
+  result: string;
   username: string;
   accessToken: string;
 
   public getCallSum() {
-    return this.callCalculator("sum")
+    return this.callCalculator("sum");
   }
 
+  public getCallSubtract() {
+    return this.callCalculator("subtract");
+  }
+
+  public getCallMultiply() {
+    return this.callCalculator("multiply");
+  }
+  public getCallSplit() {
+    return this.callCalculator("split")
+  }
 
   private callCalculator(operation: string) {
+    let httpheaders = new HttpHeaders()
+      .set('Authorization', "Bearer " + this.accessToken);
 
-    let httpOptions = {
-      headers: new HttpHeaders({
-        'Authorization': "Bearer " + this.accessToken
-      }),
-      responseType: 'text'
-    };
-    
-    let url = "" + this.applicationConfig.calculatorApiEndopoint + operation + "?param1=" + this.parameter1 + "&param2=" + this.parameter2;
-    
-    return this.http.get(url, {httpOptions);
+    let httpparams = new HttpParams()
+      .set('param1', this.parameter1.toString())
+      .set('param2', this.parameter2.toString());
+
+    let url = "" + this.applicationConfig.calculatorApiEndopoint + operation;
+
+    return this.http.get(url, { responseType: 'text', headers: httpheaders, params: httpparams });
   }
 }

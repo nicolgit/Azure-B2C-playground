@@ -5,22 +5,17 @@
 <div *ngIf=isAuthenticated>
   <input [(ngModel)]="param1" />
   <button (click)="sum()">+</button>
-  <button>-</button>
-  <button>*</button>
-  <button>/</button>
+  <button (click)="subtract()">-</button>
+  <button (click)="multiply()">*</button>
+  <button (click)="split()">/</button>
   <input [(ngModel)]="param2" />
-
-  <br />
-  <br />
-  <div>{{param1}} *** {{param2}}</div>
-  <br />
 
   <H2>Result</H2>
  
   <div>
-    isAuthenticated: {{isAuthenticated}}<br/>
-    Username: {{username}}<br/>
-    Result: {{result}}
+    <h2><b>{{result}}</b></h2>
+    isAuthenticated: <b>{{isAuthenticated}}</b><br />
+    Username: <b>{{username}}</b><br />
   </div>
 </div>
 

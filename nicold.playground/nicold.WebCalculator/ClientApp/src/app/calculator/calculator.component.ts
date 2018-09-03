@@ -99,12 +99,27 @@ export class CalculatorComponent {
   }
 
   public sum() {
-
     this.calculatorService.getCallSum().subscribe(data =>
     {
-      console.log(data);
+      this.calculatorService.result = data;
     });
-    
   }
 
+  public subtract() {
+    this.calculatorService.getCallSubtract().subscribe(data => {
+      this.calculatorService.result = data;
+    });
+  }
+
+  public multiply() {
+    this.calculatorService.getCallMultiply().subscribe(data => {
+      this.calculatorService.result = data;
+    });
+  }
+
+  public split() {
+    this.calculatorService.getCallSplit().subscribe(data => {
+      this.calculatorService.result = data;
+    });
+  }
 }
