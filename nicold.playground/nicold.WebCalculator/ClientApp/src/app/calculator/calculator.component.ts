@@ -57,14 +57,16 @@ export class CalculatorComponent {
     }
   }
 
+
   public authenticate() {
     var _this = this;
 
     console.log("begin loginPopup");
     _this.clientApplication.loginPopup(_this.calculatorService.applicationConfig.b2cScopes).then(function (idToken) {
-        console.log("begin acquireTokenSilent");
-        _this.clientApplication.acquireTokenSilent(_this.calculatorService.applicationConfig.b2cScopes).then(function (accessToken) {
-           _this.updateUI();
+      console.log("begin acquireTokenSilent");
+      _this.clientApplication.acquireTokenSilent(_this.calculatorService.applicationConfig.b2cScopes).then(function (accessToken) {
+        _this.calculatorService.accessToken = accessToken;
+        _this.updateUI();
       }, function (error) {
         console.log("ERROR begin acquireTokenPopup");
         _this.clientApplication.acquireTokenPopup(_this.calculatorService.applicationConfig.b2cScopes).then(function (accessToken) {
@@ -80,7 +82,7 @@ export class CalculatorComponent {
 
   private authCallback(errorDesc, token, error, tokenType) {
     if (token) {
-      
+      console.log("Token:" + token);
     }
     else {
       console.log(error + ":" + errorDesc); 
@@ -92,8 +94,17 @@ export class CalculatorComponent {
     this.isAuthenticated = true;
   }
   
-
   private loggerCallback(logLevel, message, piiLoggingEnabled) {
     console.log(message);
   }
+
+  public sum() {
+
+    this.calculatorService.getCallSum().subscribe(data =>
+    {
+      console.log(data);
+    });
+    
+  }
+
 }

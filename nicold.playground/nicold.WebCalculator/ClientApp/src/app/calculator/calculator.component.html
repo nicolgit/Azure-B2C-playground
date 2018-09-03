@@ -2,9 +2,9 @@
 
 <p>This is a simple web calculator</p>
 
-<div>
+<div *ngIf=isAuthenticated>
   <input [(ngModel)]="param1" />
-  <button>+</button>
+  <button (click)="sum()">+</button>
   <button>-</button>
   <button>*</button>
   <button>/</button>
@@ -14,13 +14,18 @@
   <br />
   <div>{{param1}} *** {{param2}}</div>
   <br />
-  <H2>Result</H2>
-  <div [hidden]="isAuthenticated">
-    {{username}}<br/>
-    {{result}}
-  </div>
-  <div [hidden]="!isAuthenticated" style="color:red">
-    please sign in to continue <button (click)="authenticate()">sign in</button>
-  </div>
 
-</div> 
+  <H2>Result</H2>
+ 
+  <div>
+    isAuthenticated: {{isAuthenticated}}<br/>
+    Username: {{username}}<br/>
+    Result: {{result}}
+  </div>
+</div>
+
+<div *ngIf=!isAuthenticated>
+  please sign in to continue <button style="color:red" (click)="authenticate()">sign in</button>
+</div>
+  
+
