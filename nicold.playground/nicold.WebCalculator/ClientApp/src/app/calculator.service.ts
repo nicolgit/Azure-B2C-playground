@@ -51,7 +51,19 @@ export class CalculatorService {
     return this.callCalculator("multiply");
   }
   public getCallSplit() {
-    return this.callCalculator("split")
+    return this.callCalculator("split");
+  }
+
+  public getCallPower() {
+    return this.callScientificCalculator("power");
+  }
+
+  public getCallPercentage() {
+    return this.callScientificCalculator("percentage");
+  }
+
+  public getCallFactorial() {
+    return this.callScientificCalculator("factorial");
   }
 
   private callCalculator(operation: string) {
@@ -63,6 +75,19 @@ export class CalculatorService {
       .set('param2', this.parameter2.toString());
 
     let url = "" + this.applicationConfig.calculatorApiEndopoint + operation;
+
+    return this.http.get(url, { responseType: 'text', headers: httpheaders, params: httpparams });
+  }
+
+  private callScientificCalculator(operation: string) {
+    let httpheaders = new HttpHeaders()
+      .set('Authorization', "Bearer " + this.accessToken);
+
+    let httpparams = new HttpParams()
+      .set('param1', this.parameter1.toString())
+      .set('param2', this.parameter2.toString());
+
+    let url = "" + this.applicationConfig.scientificCalculatorApiEndopoint + operation;
 
     return this.http.get(url, { responseType: 'text', headers: httpheaders, params: httpparams });
   }

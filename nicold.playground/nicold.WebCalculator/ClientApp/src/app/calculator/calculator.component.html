@@ -4,14 +4,17 @@
 
 <div *ngIf=isAuthenticated>
   <input [(ngModel)]="param1" />
-  <button (click)="sum()">+</button>
-  <button (click)="subtract()">-</button>
-  <button (click)="multiply()">*</button>
-  <button (click)="split()">/</button>
+  <button (click)="sum()"> + </button>
+  <button (click)="subtract()"> - </button>
+  <button (click)="multiply()"> * </button>
+  <button (click)="split()"> / </button>
+  <button (click)="power()"> POWER </button>
+  <button (click)="percentage()"> % </button>
+  <button (click)="factorial()"> ! </button>
   <input [(ngModel)]="param2" />
 
   <H2>Result</H2>
- 
+
   <div>
     <h2><b>{{result}}</b></h2>
     isAuthenticated: <b>{{isAuthenticated}}</b><br />

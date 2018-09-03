@@ -122,4 +122,22 @@ export class CalculatorComponent {
       this.calculatorService.result = data;
     });
   }
+
+  public power() {
+    this.calculatorService.getCallPower().subscribe(data => {
+      this.calculatorService.result = data;
+    });
+  }
+
+  public percentage() {
+    this.calculatorService.getCallPercentage().subscribe(data => {
+      this.calculatorService.result = data;
+    });
+  }
+
+  public factorial() {
+    this.calculatorService.getCallFactorial().subscribe(data => {
+      this.calculatorService.result = data;
+    });
+  }
 }
