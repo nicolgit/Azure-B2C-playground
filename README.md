@@ -41,8 +41,7 @@ The next step is to create the remaining objects in Azure:
 * **AppService Plan**: nicolplan-b2c 
 * **WebApp**: NicolWebCalculator.azurewebsites.net (OS: Windows)
 * **WebApp**: NicolAPICalculator.azurewebsites.net (OS: Windows)
-* **WebApp**: NicolAPIScientificCalculator.azurewebsites.net (OS: Windows)
- 
+
 the result is the following:
 
 ![resource group](assets/img02.png)
