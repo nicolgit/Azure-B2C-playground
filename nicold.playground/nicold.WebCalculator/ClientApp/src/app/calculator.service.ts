@@ -27,7 +27,7 @@ export class CalculatorService {
     this.applicationConfig.b2cScopes = ["https://nicolb2c.onmicrosoft.com/WebCalculator/user_impersonation"];
 
     this.applicationConfig.calculatorApiEndopoint = "https://nicolapicalculator.azurewebsites.net/api/calc/";
-    this.applicationConfig.scientificCalculatorApiEndopoint = "https://nicolapiscientificcalculator.azurewebsites.net/api/calc/";
+    this.applicationConfig.scientificCalculatorApiEndopoint = "https://nicolapiscientificcalculator.azurewebsites.net/api/scientificcalc/";
   }
 
   applicationConfig: ApplicationConfig;

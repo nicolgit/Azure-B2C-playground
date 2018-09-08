@@ -47,7 +47,7 @@ also add following nuget packages to the solution
 	Microsoft.Extensions.Configuration.UserSecrets
 	Microsoft.Extensions.SecretManager.Tools
 
-# (4) Update the code 
+# (5) Update the code 
 
 Update [program.cs](nicold.playground/nicold.APICalculator/program.cs) and [startup.cs](nicold.playground/nicold.APICalculator/startup.cs) as shown in this repository. 
 
@@ -73,7 +73,49 @@ The anonymous API looks like the following:
 
 if we want to enable the authentication, we need to add the **\[Authorize\]** attribute to the class, and everything is ready. In this sample we just require authentication, but if you need also to verify the presence of a specific claim or somthing, you can filter within the get() method on attribute in **HttpContext.User** and/or **HttpContext.User.Claims**.
 
-# Retrieve the bearer and call the API
+# (6) Update to APICalculator to avoid ValidateAudience check
+
+By default Microsoft.AspNetCore.Authentication.JwtBearer middleware verifies if the token and the API audience match. This means that in a cross API call, that happens when ApiScientificCalculator or WebCalculator call ApiCalculator using the same bearer you will receive the following message:
+
+	AuthenticationFailed: IDX10214: Audience validation failed. Audiences: '<guid>'. Did not match: validationParameters.ValidAudience: '<guid>' or validationParameters.ValidAudiences: 'null'.
+
+This because both clientid "ApiScientificCalculator || WebCalculator" and clientid "APICalculator" want to access to same API (APICalculator).
+
+In order to avoid this, in calculatorAPI>Startup>ConfigureServices you need to add the following
+
+```csharp
+var tokenValidationParameters = new TokenValidationParameters
+         {
+             RequireExpirationTime = true,
+             RequireSignedTokens = true,
+             SaveSigninToken = false,
+             ValidateActor = false,
+             ValidateAudience = false, // default WAS TRUE
+             ValidateIssuer = true,
+             ValidateIssuerSigningKey = false,
+             ValidateLifetime = true
+         };
+```
+
+
+and the following
+
+```csharp
+.AddJwtBearer(jwtOptions =>
+              {
+                  jwtOptions.Authority = $"https://login.microsoftonline.com/tfp/{Configuration["AzureAdB2C:Tenant"]}/{Configuration["AzureAdB2C:Policy"]}/v2.0/";
+                  jwtOptions.Audience = Configuration["AzureAdB2C:ClientId"];
+                  jwtOptions.TokenValidationParameters = tokenValidationParameters; // ADD THIS LINE TOO
+                  jwtOptions.Events = new JwtBearerEvents
+                  {
+                      OnAuthenticationFailed = AuthenticationFailed
+                  };
+              });
+```
+
+where you are telling "dear middlewhere, please do not validate Audience on each call":)
+
+# (7) Retrieve the bearer and call the API
 That's all. In order to call the API, you can go to Azure Portal > Azure B2C > Policies > Sign-up or Sign-In User Policy > B2C_1_signin-default
 
 ![retrieve the bearer](assets/img10.png)

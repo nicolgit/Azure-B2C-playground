@@ -11,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 
 namespace nicold.APIScientificCalculator
 {
@@ -39,6 +40,18 @@ namespace nicold.APIScientificCalculator
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var tokenValidationParameters = new TokenValidationParameters
+            {
+                RequireExpirationTime = true,
+                RequireSignedTokens = true,
+                SaveSigninToken = false,
+                ValidateActor = false,
+                ValidateAudience = false, // default WAS TRUE
+                ValidateIssuer = true,
+                ValidateIssuerSigningKey = false,
+                ValidateLifetime = true
+            };
+
             services.AddAuthentication(options =>
             {
                 options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -46,6 +59,7 @@ namespace nicold.APIScientificCalculator
             {
                 jwtOptions.Authority = $"https://login.microsoftonline.com/tfp/{Configuration["AzureAdB2C:Tenant"]}/{Configuration["AzureAdB2C:Policy"]}/v2.0/";
                 jwtOptions.Audience = Configuration["AzureAdB2C:ClientId"];
+                jwtOptions.TokenValidationParameters = tokenValidationParameters; // ADD THIS LINE TOO
                 jwtOptions.Events = new JwtBearerEvents
                 {
                     OnAuthenticationFailed = AuthenticationFailed
