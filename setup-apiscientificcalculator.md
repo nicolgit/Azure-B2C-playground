@@ -108,7 +108,7 @@ and the following
 
 where you are telling "dear middlewhere, please do not validate Audience on each call":)
 
-# Retrieve the bearer and call the API
+# (7) Retrieve the bearer and call the API
 That's all. In order to call the API, you can go to Azure Portal > Azure B2C > Policies > Sign-up or Sign-In User Policy > B2C_1_signin-default
 
 ![retrieve the bearer](assets/img10.png)
