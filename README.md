@@ -51,6 +51,6 @@ the result is the following:
 1. [Setup NicolAPICalculator](setup-apicalculator.md)
 2. [Setup NicolAPIScientificCalculator](setup-apiscientificcalculator.md)
 3. [Setup NicolWebCalculator](setup-webcalculator.md)
-4. [Xamarin Mobile App](setup-apicalculator-xamarin.md)
+4. [Xamarin Forms Mobile App](setup-apicalculator-xamarin.md)
 5. Configure Postman [to call NicolAPICalculator](setup-postman.md)
 
