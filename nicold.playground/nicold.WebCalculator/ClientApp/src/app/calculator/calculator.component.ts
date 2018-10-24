@@ -47,6 +47,12 @@ export class CalculatorComponent {
     this.calculatorService.isAuthenticated = val;
   }
 
+  get isLoading(): boolean {
+    return this.calculatorService.isLoading;
+  }
+  set isLoading(val: boolean) {
+    this.calculatorService.isLoading = val;
+  }
   
   get result(): string {
     if (this.calculatorService.isAuthenticated) {
@@ -101,42 +107,49 @@ export class CalculatorComponent {
   public sum() {
     this.calculatorService.getCallSum().subscribe(data =>
     {
+      this.calculatorService.isLoading = false;
       this.calculatorService.result = data;
     });
   }
 
   public subtract() {
     this.calculatorService.getCallSubtract().subscribe(data => {
+      this.calculatorService.isLoading = false;
       this.calculatorService.result = data;
     });
   }
 
   public multiply() {
     this.calculatorService.getCallMultiply().subscribe(data => {
+      this.calculatorService.isLoading = false;
       this.calculatorService.result = data;
     });
   }
 
   public split() {
     this.calculatorService.getCallSplit().subscribe(data => {
+      this.calculatorService.isLoading = false;
       this.calculatorService.result = data;
     });
   }
 
   public power() {
     this.calculatorService.getCallPower().subscribe(data => {
+      this.calculatorService.isLoading = false;
       this.calculatorService.result = data;
     });
   }
 
   public percentage() {
     this.calculatorService.getCallPercentage().subscribe(data => {
+      this.calculatorService.isLoading = false;
       this.calculatorService.result = data;
     });
   }
 
   public factorial() {
     this.calculatorService.getCallFactorial().subscribe(data => {
+      this.calculatorService.isLoading = false;
       this.calculatorService.result = data;
     });
   }

@@ -3,19 +3,26 @@
 <p>This is a simple web calculator</p>
 
 <div *ngIf=isAuthenticated>
-  <input [(ngModel)]="param1" />
-  <button (click)="sum()"> + </button>
-  <button (click)="subtract()"> - </button>
-  <button (click)="multiply()"> * </button>
-  <button (click)="split()"> / </button>
-  <button (click)="power()"> POWER </button>
-  <button (click)="percentage()"> % </button>
-  <button (click)="factorial()"> ! </button>
-  <input [(ngModel)]="param2" />
+  <input [(ngModel)]="param1" class="form-control" />
+  <br />
+  <br />
+  <button (click)="sum()" class="btn btn-primary"> + sum</button>
+  <button (click)="subtract()" class="btn btn-primary"> - sub </button>
+  <button (click)="multiply()" class="btn btn-primary"> * mul</button>
+  <button (click)="split()" class="btn btn-primary"> / split</button>
+  <button (click)="power()" class="btn btn-warning"> ^ pwr </button>
+  <button (click)="percentage()" class="btn btn-warning"> % perc </button>
+  <button (click)="factorial()" class="btn btn-warning"> !factorial </button>
+
+  <br />
+  <br />
+
+  <input [(ngModel)]="param2" class="form-control" />
 
   <H2>Result</H2>
 
   <div>
+    <div *ngIf=isLoading class="loader"></div>
     <h2><b>{{result}}</b></h2>
     isAuthenticated: <b>{{isAuthenticated}}</b><br />
     Username: <b>{{username}}</b><br />
@@ -23,7 +30,7 @@
 </div>
 
 <div *ngIf=!isAuthenticated>
-  please sign in to continue <button style="color:red" (click)="authenticate()">sign in</button>
+  please sign in to continue <button class="btn btn-success" (click)="authenticate()">sign in</button>
 </div>
   
 

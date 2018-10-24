@@ -16,9 +16,10 @@ export class CalculatorService {
 
   constructor(private http: HttpClient)  {
     this.parameter1 = 12;
-    this.parameter2 = 34;
+    this.parameter2 = 4;
     this.isAuthenticated = false;
-    this.username = "prova";
+    this.isLoading = false;
+    this.username = "test";
     this.result = "";
 
     this.applicationConfig = new ApplicationConfig();
@@ -33,6 +34,7 @@ export class CalculatorService {
   applicationConfig: ApplicationConfig;
 
   isAuthenticated: boolean;
+  isLoading: boolean;
   parameter1: number;
   parameter2: number;
   result: string;
@@ -67,6 +69,9 @@ export class CalculatorService {
   }
 
   private callCalculator(operation: string) {
+    this.isLoading = true;
+    this.result = "";
+
     let httpheaders = new HttpHeaders()
       .set('Authorization', "Bearer " + this.accessToken);
 
@@ -80,6 +85,9 @@ export class CalculatorService {
   }
 
   private callScientificCalculator(operation: string) {
+    this.isLoading = true;
+    this.result = "";
+
     let httpheaders = new HttpHeaders()
       .set('Authorization', "Bearer " + this.accessToken);
 
