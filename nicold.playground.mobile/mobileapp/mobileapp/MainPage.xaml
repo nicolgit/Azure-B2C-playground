@@ -6,10 +6,7 @@
 
     <StackLayout Orientation="Vertical">
         <!-- Place new controls here -->
-    	<Label HorizontalTextAlignment="Center" Text="NicolAPICalculator Tester"  />
-        <Button Margin="10" Text="Sign-in" Clicked="Button_SigninClicked" IsEnabled="{Binding IsNotSignedIn}"  />
-        <Button Margin="10" Text="Sign-out" Clicked="Button_SignOutClicked" IsEnabled="{Binding IsSignedIn}" />
-        <Grid Margin="10">
+        <Grid Margin="0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*" />
                 <ColumnDefinition Width="1*" />
@@ -17,10 +14,14 @@
             <Editor Text="{Binding Parameter1}" Grid.Row="0" Grid.Column="0" />
             <Editor Text="{Binding Parameter2}" Grid.Row="0" Grid.Column="1" />
         </Grid>
-        <Button Margin="10" Text="Sum" Clicked="Button_SumClicked" IsEnabled="{Binding IsSignedIn}" />
-        <Button Margin="10" Text="Multiply" Clicked="Button_MulClicked" IsEnabled="{Binding IsSignedIn}" />
-        <Button Margin="10" Text="Subtract" Clicked="Button_SubClicked" IsEnabled="{Binding IsSignedIn}" />
-        <Button Margin="10" Text="Split" Clicked="Button_SplitClicked" IsEnabled="{Binding IsSignedIn}" />
+        
+    	<Label HorizontalTextAlignment="Center" Text="NicolAPICalculator Tester"  />
+        <Button Margin="0" Text="Sign-in" Clicked="Button_SigninClicked" IsEnabled="{Binding IsNotSignedIn}"  />
+        <Button Margin="0" Text="Sign-out" Clicked="Button_SignOutClicked" IsEnabled="{Binding IsSignedIn}" />
+        <Button Margin="0" Text="Sum" Clicked="Button_SumClicked" IsEnabled="{Binding IsSignedIn}" />
+        <Button Margin="0" Text="Multiply" Clicked="Button_MulClicked" IsEnabled="{Binding IsSignedIn}" />
+        <Button Margin="0" Text="Subtract" Clicked="Button_SubClicked" IsEnabled="{Binding IsSignedIn}" />
+        <Button Margin="0" Text="Split" Clicked="Button_SplitClicked" IsEnabled="{Binding IsSignedIn}" />
         <Label Margin="10" Text="{Binding Path=Output}" LineBreakMode="WordWrap"/>
     </StackLayout>
 
