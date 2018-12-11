@@ -69,7 +69,13 @@ export class CalculatorComponent {
 
     console.log("begin loginPopup");
     _this.clientApplication.loginPopup(_this.calculatorService.applicationConfig.b2cScopes).then(function (idToken) {
-      console.log("begin acquireTokenSilent");
+
+      var JWTtoken = _this.parseJwt(idToken);
+      _this.calculatorService.username = JWTtoken.name;
+
+      console.log("JWT Token explained: " + JSON.stringify(JWTtoken));
+      console.log("Begin acquireTokenSilent");
+      
       _this.clientApplication.acquireTokenSilent(_this.calculatorService.applicationConfig.b2cScopes).then(function (accessToken) {
         _this.calculatorService.accessToken = accessToken;
         _this.updateUI();
@@ -95,8 +101,14 @@ export class CalculatorComponent {
     }
   }
 
+  private parseJwt(token) {
+    var base64Url = token.split('.')[1];
+    var base64 = base64Url.replace('-', '+').replace('_', '/');
+    
+    return JSON.parse(window.atob(base64));
+  };
+
   private updateUI() {
-    this.username = this.clientApplication.getUser().userIdentifier;
     this.isAuthenticated = true;
   }
   

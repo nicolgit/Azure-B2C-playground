@@ -19,7 +19,7 @@ export class CalculatorService {
     this.parameter2 = 4;
     this.isAuthenticated = false;
     this.isLoading = false;
-    this.username = "test";
+    this.username = "--";
     this.result = "";
 
     this.applicationConfig = new ApplicationConfig();
