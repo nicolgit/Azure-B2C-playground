@@ -33,6 +33,20 @@ Once configured remember that you can switch from your B2C tenant to another usi
 
 ![change directory](assets/img01.png)
 
+
+# Configure UserFlow (Policy)
+
+AzureB2C comes with a default sign-up|sign-in user policy. In order to show the user's "Display Name" on the the Web and mobile UI we need to return is as Application Claim. Application claims are returned to the application in the JWS token returned at authorization time. In order to be sure to have this information in the claims list:
+
+* Open Azure B2C Service
+* Select "User flows (policy)"
+* Select Default policy
+* Select "Application Claims"
+* from the claims list select "Display Name"
+* Click on Save button
+
+![update User Flow](assets/img14.png)
+
 # Azure Resources Setup
 
 The next step is to create the remaining objects in Azure:
