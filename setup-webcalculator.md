@@ -50,7 +50,7 @@ also add following NuGet packages to the solution
 
 Update [program.cs](nicold.playground/nicold.APICalculator/program.cs) and [startup.cs](nicold.playground/nicold.APICalculator/startup.cs) as shown in this repository, then create a controller for the home page [Controllers/HomeController.cs](nicold.playground/nicold.APICalculator/Controllers/HomeController.cs) with the corresponding view [View/Home/index.shtml](nicold.playground/nicold.APICalculator/View/Home/index.shtml).
 
-It is now the time to build the real API. We will implement the API with the controller [Controllers/CalcController.cs](nicold.playground/nicold.APIScientificCalculator/Controllers/CalcController.cs)****
+It is now the time to build the real API: we will implement the API in the controller [Controllers/CalcController.cs](nicold.playground/nicold.APIScientificCalculator/Controllers/CalcController.cs)
 
 The sequence of operation needed to authenticate the API is similar to APICalculatator. The interesting part is the API to API portion of the code.
 Here the main attention points:

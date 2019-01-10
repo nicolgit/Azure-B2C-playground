@@ -1,6 +1,6 @@
 # Azure-B2C-playground
 
-Objective for this lab is to build a playground where to test various authentication and integration scenarios on Azure B2C.
+Objective for this lab is to build a playground where to test authentication and integration scenarios on Azure B2C.
 
 We will configure a Tenant B2C for the company _NicolCorp_ where we will store all customer's user profiles. Once configured we will setup the following Web Applications:
 
@@ -8,7 +8,7 @@ We will configure a Tenant B2C for the company _NicolCorp_ where we will store a
 * 	**NicolAPIScientificCalculator**: an authenticated WebAPI that allows basic scientific calculation. It uses Api exposed by NicolAPICalculator
 * 	**NicolWebCalculator**: an ASP.NET MVC Web Application that allows user to perform simple calculations. It uses NicolAPICalculator via backend.
 
-we will also show how access to these API from_
+we will also show how access to these API from:
 
 * A Mobile App developed with Xamarin
 * Postman
@@ -53,7 +53,8 @@ The next step is to create the remaining objects in Azure:
 
 * **Resource Group**: nicolcorp-b2c-playground - will contain all the resources involved in the plan
 * **AppService Plan**: nicolplan-b2c 
-* **WebApp**: NicolWebCalculator.azurewebsites.net (OS: Windows)
+* **WebApp**: NicolAPICalculator.azurewebsites.net (OS: Windows)
+* **WebApp**: NicolAPIScientificCalculator.azurewebsites.net (OS: Windows)
 * **WebApp**: NicolAPICalculator.azurewebsites.net (OS: Windows)
 
 the result is the following:
