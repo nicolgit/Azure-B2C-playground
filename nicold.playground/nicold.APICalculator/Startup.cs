@@ -45,10 +45,16 @@ namespace nicold.APICalculator
                 RequireSignedTokens = true,
                 SaveSigninToken = false,
                 ValidateActor = false,
-                ValidateAudience = false, // default WAS TRUE
+                ValidateAudience = true,
                 ValidateIssuer = true,
                 ValidateIssuerSigningKey = false,
-                ValidateLifetime = true
+                ValidateLifetime = true,
+                ValidAudiences = new string[] {
+                    Configuration["AzureAdB2C:ClientId"],   // API Calculator
+                    "9f3d61b2-e38e-4c22-88ed-3f6735e40e0a", // API Scientific Calculator
+                    "c07391de-3205-4496-a704-4607b18b64f9",  // WebCalculator 
+                    "d668afda-f613-43f7-89e4-5425496ebdf2", // postman
+                }
             };
 
             services.AddAuthentication(options =>

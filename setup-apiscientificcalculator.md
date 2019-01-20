@@ -67,7 +67,7 @@ Here the main attention points:
 
     var httpResponse = await _client.GetAsync(string.Format(CALL_MULTIPLY, param1, param2));
 
-# (6) Update to APIScientificCalculator to avoid ValidateAudience check
+# (6) Update to APIScientificCalculator to avoid "Validation Audience failed"
 
 By default Microsoft.AspNetCore.Authentication.JwtBearer middleware verifies if the token and the API audience match. This means that in a cross API call, that happens when WebCalculator calls ApiScientificCalculator using the same bearer, you will receive the following message:
 
@@ -79,31 +79,36 @@ In order to avoid this, in calculatorAPI>Startup>ConfigureServices you need to a
 
 ```csharp
 var tokenValidationParameters = new TokenValidationParameters
-         {
-             RequireExpirationTime = true,
-             RequireSignedTokens = true,
-             SaveSigninToken = false,
-             ValidateActor = false,
-             ValidateAudience = false, // default WAS TRUE
-             ValidateIssuer = true,
-             ValidateIssuerSigningKey = false,
-             ValidateLifetime = true
-         };
-```
+            {
+                RequireExpirationTime = true,
+                RequireSignedTokens = true,
+                SaveSigninToken = false,
+                ValidateActor = false,
+                ValidateAudience = true,
+                ValidateIssuer = true,
+                ValidateIssuerSigningKey = false,
+                ValidateLifetime = true,
+                ValidAudiences = new string[] {
+                    Configuration["AzureAdB2C:ClientId"],    // API Scientific Calculator
+                    "c07391de-3205-4496-a704-4607b18b64f9",  // WebCalculator 
+                    "d668afda-f613-43f7-89e4-5425496ebdf2",  // postman
+                }
+            };
 
-and the following
+            services.AddAuthentication(options =>
+            {
+                options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(jwtOptions =>
+            {
+                jwtOptions.Authority = $"https://login.microsoftonline.com/tfp/{Configuration["AzureAdB2C:Tenant"]}/{Configuration["AzureAdB2C:Policy"]}/v2.0/";
+                jwtOptions.Audience = Configuration["AzureAdB2C:ClientId"];
+                jwtOptions.TokenValidationParameters = tokenValidationParameters; // ADD THIS LINE TOO
+                jwtOptions.Events = new JwtBearerEvents
+                {
+                    OnAuthenticationFailed = AuthenticationFailed
+                };
+            });
 
-```csharp
-.AddJwtBearer(jwtOptions =>
-              {
-                  jwtOptions.Authority = $"https://login.microsoftonline.com/tfp/{Configuration["AzureAdB2C:Tenant"]}/{Configuration["AzureAdB2C:Policy"]}/v2.0/";
-                  jwtOptions.Audience = Configuration["AzureAdB2C:ClientId"];
-                  jwtOptions.TokenValidationParameters = tokenValidationParameters; // ADD THIS LINE TOO
-                  jwtOptions.Events = new JwtBearerEvents
-                  {
-                      OnAuthenticationFailed = AuthenticationFailed
-                  };
-              });
 ```
 
 where you are telling "dear middlewhere, please do not validate Audience on each call":)
