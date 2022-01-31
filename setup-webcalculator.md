@@ -70,7 +70,7 @@ Here the main attention points:
 
     var httpResponse = await _client.GetAsync(string.Format(CALL_MULTIPLY, param1, param2));
 
-# (6) Update to APICalculator to avoid ValidateAudience check
+# (6) Update to APICalculator and APIScientificCalculator to avoid ValidateAudience check
 
 By default Microsoft.AspNetCore.Authentication.JwtBearer middleware verifies on call if the token and the API audience match. This means that in a cross API call, if you try to use the same bearer, when ScientificAPI Calls Calculator receive the following message:
 
@@ -78,34 +78,90 @@ By default Microsoft.AspNetCore.Authentication.JwtBearer middleware verifies on 
 
 This because both clientdi "9f3d61b2-e38e-4c22-88ed-3f6735e40e0a" and clientid "27339a64-0c55-4ba0-8632-aaaa81030814" want to access to same API.
 
-In order to avoid this, to calculatorAPI you need to add the following
+In order to avoid this, in ValidAudiences we have to enumerate all the Audiences authorized to use the API. 
 
-	var tokenValidationParameters = new TokenValidationParameters
+![architecture](assets/architecture.png)
+
+Looking at schema above, API Calculator and API Scientific Calculator are backend API called by different services, so more valid audiences must be set.
+
+
+| API        | Valid Audiences |
+|------------|-----------------|
+| Calculator | Calculator - ScientificCalculator - WebCalculator - postman    |
+| ScientificCalculator |    ScientificCalculator - WebCalculator - postman  |
+
+
+For the Calculator API, In calculatorAPI>Startup>ConfigureServices, you need to add the following
+
+```csharp
+var tokenValidationParameters = new TokenValidationParameters
             {
                 RequireExpirationTime = true,
                 RequireSignedTokens = true,
                 SaveSigninToken = false,
                 ValidateActor = false,
-                ValidateAudience = false, // default WAS TRUE
+                ValidateAudience = true,
                 ValidateIssuer = true,
                 ValidateIssuerSigningKey = false,
-                ValidateLifetime = true
+                ValidateLifetime = true,
+                ValidAudiences = new string[] {
+                    Configuration["AzureAdB2C:ClientId"],   // API Calculator
+                    "9f3d61b2-e38e-4c22-88ed-3f6735e40e0a", // API Scientific Calculator
+                    "c07391de-3205-4496-a704-4607b18b64f9",  // WebCalculator 
+                    "d668afda-f613-43f7-89e4-5425496ebdf2", // postman
+                }
             };
 
-and the following
-
-	.AddJwtBearer(jwtOptions =>
+services.AddAuthentication(options =>
+            {
+                options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(jwtOptions =>
               {
                   jwtOptions.Authority = $"https://login.microsoftonline.com/tfp/{Configuration["AzureAdB2C:Tenant"]}/{Configuration["AzureAdB2C:Policy"]}/v2.0/";
                   jwtOptions.Audience = Configuration["AzureAdB2C:ClientId"];
-                  jwtOptions.TokenValidationParameters = tokenValidationParameters; // ADD THIS LINE TOO
+                  jwtOptions.TokenValidationParameters = tokenValidationParameters;
                   jwtOptions.Events = new JwtBearerEvents
                   {
                       OnAuthenticationFailed = AuthenticationFailed
                   };
               });
+```
 
-where you are telling "dear middlewhere, please do not validate Audience on each call":)
+While for the Scientific Calculator API, you need to add:
+
+
+```csharp
+var tokenValidationParameters = new TokenValidationParameters
+            {
+                RequireExpirationTime = true,
+                RequireSignedTokens = true,
+                SaveSigninToken = false,
+                ValidateActor = false,
+                ValidateAudience = true,
+                ValidateIssuer = true,
+                ValidateIssuerSigningKey = false,
+                ValidateLifetime = true,
+                ValidAudiences = new string[] {
+                    Configuration["AzureAdB2C:ClientId"],    // API Scientific Calculator
+                    "c07391de-3205-4496-a704-4607b18b64f9",  // WebCalculator 
+                    "d668afda-f613-43f7-89e4-5425496ebdf2",  // postman
+                }
+            };
+
+            services.AddAuthentication(options =>
+            {
+                options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(jwtOptions =>
+            {
+                jwtOptions.Authority = $"https://login.microsoftonline.com/tfp/{Configuration["AzureAdB2C:Tenant"]}/{Configuration["AzureAdB2C:Policy"]}/v2.0/";
+                jwtOptions.Audience = Configuration["AzureAdB2C:ClientId"];
+                jwtOptions.TokenValidationParameters = tokenValidationParameters; // ADD THIS LINE TOO
+                jwtOptions.Events = new JwtBearerEvents
+                {
+                    OnAuthenticationFailed = AuthenticationFailed
+                };
+            });
+```
 
 # Retrieve the bearer and call the API
 That's all. In order to call the API, you can go to Azure Portal > Azure B2C > Policies > Sign-up or Sign-In User Policy > B2C_1_signin-default
