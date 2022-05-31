@@ -47,6 +47,8 @@ also add following nuget packages to the solution
 	Microsoft.Extensions.Configuration.UserSecrets
 	Microsoft.Extensions.SecretManager.Tools
 
+(Not all package versions are compatible with each other. I could install the SecretManager only from cmd in the project folder by command "dotnet add package Microsoft.Extensions.SecretManager.Tools")
+
 # (5) Update the code 
 
 Update [program.cs](nicold.playground/nicold.APICalculator/program.cs) and [startup.cs](nicold.playground/nicold.APICalculator/startup.cs) as shown in this repository. 
